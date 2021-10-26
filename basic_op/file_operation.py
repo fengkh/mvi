@@ -2,12 +2,12 @@ import os
 
 
 # 将文件夹内所有文件路径存到list_name数组
-def get_absolute_path(path):
+def get_file_absolute_path(path):
     list_name = []
     for file in os.listdir(path):
         file_path = os.path.join(path, file)
         if os.path.isdir(file_path):
-            get_absolute_path(file_path, list_name)
+            get_file_absolute_path(file_path, list_name)
         else:
             list_name.append(file_path)
     return list_name
@@ -40,7 +40,7 @@ def get_filename(path):
 
 # 构造对应的生成子空文件夹
 def generate_paths(ori_path, des_path):
-    list_name = get_absolute_path(ori_path)
+    list_name = get_file_absolute_path(ori_path)
     generate_path(des_path)
     file_name = get_filename(ori_path)
     path = []

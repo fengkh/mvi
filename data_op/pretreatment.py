@@ -12,7 +12,7 @@ Image.MAX_IMAGE_PIXELS = None
 def compress(ori_path, des_path, w, h):
     print("\tcompress:" + str(time.asctime(time.localtime(time.time()))))
     file_name = fop.get_filename(ori_path)
-    list_name = fop.get_absolute_path(ori_path)
+    list_name = fop.get_file_absolute_path(ori_path)
     fop.generate_path(des_path)
     file_nums = len(list_name)
     for i in range(file_nums):
@@ -31,13 +31,27 @@ def compress(ori_path, des_path, w, h):
 def cut(ori_path, des_path, size):
     print("\tcut:" + str(time.asctime(time.localtime(time.time()))))
     # file_path为新文件目录表
+    files = fop.get_file_absolute_path(ori_path)
     file_path = fop.generate_paths(ori_path, des_path)
-    for i in range(len(ori_path)):
-        img = Image.open("./data/cut/thor.jpg")
+    # 裁剪每个单独的图并存放到对应的目录下
+    for i in range(len(files)):
+        img = Image.open(files[i])
         print(img.size)
         cropped = img.crop((0, 0, 512, 128))  # (left, upper, right, lower)
         cropped.save("./data/cut/pil_cut_thor.jpg")
     print("\tcut complete:" + str(time.asctime(time.localtime(time.time()))))
+
+
+# 图片resize到同一个size
+def normalize_size(ori_path, des_path, size):
+    print("\tnormalize_size:" + str(time.asctime(time.localtime(time.time()))))
+    files = fop.get_file_absolute_path(ori_path)
+    file_name = fop.get_filename(ori_path)
+    for i in range(len(files)):
+        image = Image.open(files[i])
+        resized_img = image.resize((size, size))
+        resized_img.save(des_path + "/" + file_name[i] + '.png')
+    print("\tnormalize_size complete:" + str(time.asctime(time.localtime(time.time()))))
 
 
 # 病理图片颜色归一化（待定）
