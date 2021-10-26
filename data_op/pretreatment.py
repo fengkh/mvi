@@ -42,7 +42,7 @@ def cut(ori_path, des_path, size):
     print("\tcut complete:" + str(time.asctime(time.localtime(time.time()))))
 
 
-# 图片resize到同一个size
+# 图片尺寸归一化
 def normalize_size(ori_path, des_path, size):
     print("\tnormalize_size:" + str(time.asctime(time.localtime(time.time()))))
     files = fop.get_file_absolute_path(ori_path)
