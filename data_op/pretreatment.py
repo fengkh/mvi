@@ -28,18 +28,28 @@ def compress(ori_path, des_path, w, h):
 
 
 # 裁剪病理切片
-def cut(ori_path, des_path, size):
-    print("\tcut:" + str(time.asctime(time.localtime(time.time()))))
+def crop(ori_path, des_path, size):
+    print("\tcrop:" + str(time.asctime(time.localtime(time.time()))))
     # file_path为新文件目录表
     files = fop.get_file_absolute_path(ori_path)
     file_path = fop.generate_paths(ori_path, des_path)
+    file_name = fop.get_filename(ori_path)
     # 裁剪每个单独的图并存放到对应的目录下
     for i in range(len(files)):
         img = Image.open(files[i])
-        print(img.size)
-        cropped = img.crop((0, 0, 512, 128))  # (left, upper, right, lower)
-        cropped.save("./data/cut/pil_cut_thor.jpg")
-    print("\tcut complete:" + str(time.asctime(time.localtime(time.time()))))
+        for row in range(1, 11):
+            for column in range(1, 11):
+                box = ((row - 1) * 1024, (column - 1) * 1024, row * 1024, column * 1024)  # (left, upper, right, lower)
+                cropped = img.crop(box)
+                cropped.save(file_path[i] + "/" + file_name[i] + "&" + str(row) + "_" + str(column) + ".png")
+    print("\tcrop complete:" + str(time.asctime(time.localtime(time.time()))))
+
+
+# 拼接病理切片
+def stitch():
+    print("\tstitch:" + str(time.asctime(time.localtime(time.time()))))
+
+    print("\tstitch complete:" + str(time.asctime(time.localtime(time.time()))))
 
 
 # 图片尺寸归一化

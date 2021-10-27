@@ -45,6 +45,6 @@ def generate_paths(ori_path, des_path):
     file_name = get_filename(ori_path)
     path = []
     for i in range(len(list_name)):
-        path[i] = des_path + "/" + file_name[i]
+        path.append(des_path + "/" + file_name[i])
         generate_path(path[i])
     return path

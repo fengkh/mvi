@@ -2,21 +2,21 @@ import data_op.pretreatment as data_pre
 
 
 def compress():
-    data_pre.compress(ori_path="E:\IoT\项目\肝脏肿瘤入侵识别项目\stage2\dataset\compress_test",
-                      des_path="E:\IoT\项目\肝脏肿瘤入侵识别项目\stage2\dataset\generate_test", w=20, h=20)
+    data_pre.compress(ori_path="",
+                      des_path="", w=20, h=20)
 
 
 def cut():
-    data_pre.cut(ori_path="E:\IoT\项目\肝脏肿瘤入侵识别项目\stage2\dataset\compress_test",
-                 des_path="E:\IoT\项目\肝脏肿瘤入侵识别项目\stage2\dataset\generate_test", size=100)
+    data_pre.crop(ori_path="C:/Users/fengk\Desktop\新建文件夹",
+                  des_path="C:/Users/fengk\Desktop\新建文件夹 (2)", size=1024)
 
 
 def normalize_size():
-    data_pre.normalize_size(ori_path="E:\IoT\项目\肝脏肿瘤入侵识别项目\stage2\dataset\compress_test",
-                            des_path="E:\IoT\项目\肝脏肿瘤入侵识别项目\stage2\dataset\generate_test", size=1024)
+    data_pre.normalize_size(ori_path="",
+                            des_path="", size=1024)
 
 
 if __name__ == '__main__':
     # compress()
-    # cut()
-    normalize_size()
+    cut()
+    # normalize_size()
