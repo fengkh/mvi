@@ -27,7 +27,7 @@ def compress(ori_path, des_path, w, h):
     print("\tcompress complete:" + str(time.asctime(time.localtime(time.time()))))
 
 
-# 裁剪病理切片
+# 裁剪病理切片，size为需要裁剪的小正方形边长
 def crop(ori_path, des_path, size):
     print("\tcrop:" + str(time.asctime(time.localtime(time.time()))))
     # file_path为新文件目录表
@@ -52,7 +52,7 @@ def stitch():
     print("\tstitch complete:" + str(time.asctime(time.localtime(time.time()))))
 
 
-# 图片尺寸归一化
+# 图片尺寸归一化，size表示目标尺寸的正方形边长
 def normalize_size(ori_path, des_path, size):
     print("\tnormalize_size:" + str(time.asctime(time.localtime(time.time()))))
     files = fop.get_file_absolute_path(ori_path)
