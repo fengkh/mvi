@@ -1,5 +1,7 @@
 import time
 
+import matplotlib.pyplot as plt
+import numpy as np
 import openslide
 from PIL import Image
 
@@ -38,6 +40,11 @@ def crop(ori_path, des_path, size):
     file_name = fop.get_filename(ori_path)
     # 裁剪每个单独的图并存放到对应的目录下
     for i in range(len(files)):
+        # img = np.array(Image.open(files[i]))
+        # for row in range(1, 11):
+        #     for column in range(1, 11):
+        #         crop = img[(row - 1) * 1024:row * 1024, (column - 1) * 1024:column * 1024:]
+        #         plt.imsave(file_path[i] + "/" + file_name[i] + "&" + str(row) + "_" + str(column) + ".png", crop)
         img = Image.open(files[i])
         for row in range(1, 11):
             for column in range(1, 11):
