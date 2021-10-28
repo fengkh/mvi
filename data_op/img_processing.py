@@ -10,6 +10,7 @@ Image.MAX_IMAGE_PIXELS = None
 
 # 压缩病理切片（w，h参数分别表示长宽的压缩比）
 def compress(ori_path, des_path, w, h):
+    start_time = time.time()
     print("\tcompress:" + str(time.asctime(time.localtime(time.time()))))
     file_name = fop.get_filename(ori_path)
     list_name = fop.get_file_absolute_path(ori_path)
@@ -25,6 +26,7 @@ def compress(ori_path, des_path, w, h):
         save_img.save(save_path)
         slide.close()
     print("\tcompress complete:" + str(time.asctime(time.localtime(time.time()))))
+    return start_time, file_nums
 
 
 # 裁剪病理切片，size为需要裁剪的小正方形边长
@@ -61,6 +63,7 @@ def stitch(ori_path, des_path):
             image.paste(img, box)
         image.save(des_path + "/" + file_name[i].split("&", 1)[0] + ".png")
     print("\tstitch complete:" + str(time.asctime(time.localtime(time.time()))))
+    return time.time()
 
 
 # 图片尺寸归一化，size表示目标尺寸的正方形边长
