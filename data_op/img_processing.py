@@ -46,9 +46,20 @@ def crop(ori_path, des_path, size):
 
 
 # 拼接病理切片
-def stitch():
+def stitch(ori_path, des_path):
     print("\tstitch:" + str(time.asctime(time.localtime(time.time()))))
-
+    file_path = fop.get_file_absolute_path(ori_path)
+    fop.generate_path(des_path)
+    for i in range(len(file_path)):
+        file_name = fop.get_filename(file_path[i])
+        image = Image.new("RGB", (10240, 10240))
+        for j in range(len(file_name)):
+            row = int(file_name[j].split("&", 1)[1].split("_", 1)[0])
+            column = int(file_name[j].split("&", 1)[1].split("_", 1)[1])
+            img = Image.open(file_path[i] + "/" + file_name[j] + ".png")
+            box = ((row - 1) * 1024, (column - 1) * 1024, row * 1024, column * 1024)
+            image.paste(img, box)
+        image.save(des_path + "/" + file_name[i].split("&", 1)[0] + ".png")
     print("\tstitch complete:" + str(time.asctime(time.localtime(time.time()))))
 
 
@@ -57,6 +68,7 @@ def normalize_size(ori_path, des_path, size):
     print("\tnormalize_size:" + str(time.asctime(time.localtime(time.time()))))
     files = fop.get_file_absolute_path(ori_path)
     file_name = fop.get_filename(ori_path)
+    fop.generate_path(des_path)
     for i in range(len(files)):
         image = Image.open(files[i])
         resized_img = image.resize((size, size))

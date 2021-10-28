@@ -1,19 +1,28 @@
-import data_op.pretreatment as data_pre
+import data_op.img_processing as data_pre
 
 
 def compress():
-    data_pre.compress(ori_path="", des_path="", w=20, h=20)
-
-
-def cut():
-    data_pre.crop(ori_path="", des_path="", size=1024)
+    data_pre.compress(ori_path="E:\IoT\项目\肝脏肿瘤入侵识别项目\stage2\code_test/ndpi",
+                      des_path="E:\IoT\项目\肝脏肿瘤入侵识别项目\stage2\code_test/ndpi_com", w=10, h=10)
 
 
 def normalize_size():
-    data_pre.normalize_size(ori_path="", des_path="", size=1024)
+    data_pre.normalize_size(ori_path="E:\IoT\项目\肝脏肿瘤入侵识别项目\stage2\code_test/ndpi_com",
+                            des_path="E:\IoT\项目\肝脏肿瘤入侵识别项目\stage2\code_test/ndpi_nor", size=10240)
+
+
+def cut():
+    data_pre.crop(ori_path="E:\IoT\项目\肝脏肿瘤入侵识别项目\stage2\code_test/ndpi_nor",
+                  des_path="E:\IoT\项目\肝脏肿瘤入侵识别项目\stage2\code_test/ndpi_cut", size=1024)
+
+
+def stitch():
+    return data_pre.stitch(ori_path="E:\IoT\项目\肝脏肿瘤入侵识别项目\stage2\code_test/ndpi_cut",
+                           des_path="E:\IoT\项目\肝脏肿瘤入侵识别项目\stage2\code_test/ndpi_stitch")
 
 
 if __name__ == '__main__':
-    # compress()
+    compress()
+    normalize_size()
     cut()
-    # normalize_size()
+    stitch()

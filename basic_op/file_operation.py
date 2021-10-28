@@ -6,10 +6,7 @@ def get_file_absolute_path(path):
     list_name = []
     for file in os.listdir(path):
         file_path = os.path.join(path, file)
-        if os.path.isdir(file_path):
-            get_file_absolute_path(file_path, list_name)
-        else:
-            list_name.append(file_path)
+        list_name.append(file_path)
     return list_name
 
 
