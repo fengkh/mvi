@@ -1,7 +1,10 @@
 import time
 
+import matplotlib as plt
+import numpy as np
 import openslide
 from PIL import Image
+from sklearn import preprocessing
 
 import basic_op.file_operation as fop
 
@@ -26,7 +29,6 @@ def compress(ori_path, des_path, w, h):
         save_img.save(save_path)
         slide.close()
     print("\tcompress complete:" + str(time.asctime(time.localtime(time.time()))))
-    return start_time, file_nums
 
 
 # 裁剪病理切片，size为需要裁剪的小正方形边长
@@ -85,7 +87,12 @@ def normalize_size(ori_path, des_path, size):
 
 
 # 病理图片颜色归一化（待定）
-def color_normalization():
+def normalize_color(ori_path, des_path):
     print("\tcolor_normalization:" + str(time.asctime(time.localtime(time.time()))))
-
+    fop.generate_path(des_path)
+    file_path = fop.get_file_absolute_path(ori_path)
+    file_name = fop.get_filename(ori_path)
+    for i in range(len(file_path)):
+        img = preprocessing.scale(np.array(Image.open(file_path[i])))
+        plt.imsave(des_path + "/" + file_name[i], img)
     print("\tcolor_normalization complete:" + str(time.asctime(time.localtime(time.time()))))
