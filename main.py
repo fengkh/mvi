@@ -10,13 +10,13 @@ def compress():
 
 
 def normalize_size():
-    data_pre.normalize_size(ori_path="E:/ndpi_com",
-                            des_path="E:/ndpi_nor", size=10240)
+    data_pre.normalize_size(ori_path="D:\_DATA/ndpi_com",
+                            des_path="D:\_DATA/ndpi_nor", size=10240)
 
 
 def crop():
-    data_pre.crop(ori_path="E:/ndpi_nor",
-                  des_path="E:/ndpi_cut", size=1024)
+    data_pre.crop(ori_path="D:\_DATA/ndpi_nor",
+                  des_path="D:\_DATA/ndpi_cut", size=1024)
 
 
 def stitch():
@@ -30,13 +30,9 @@ def normalize_color():
 
 if __name__ == '__main__':
     # log.log_init()
-    file_nums = 180
-    start_time = time.time()
-    compress()
-    # normalize_size()
-    # crop()
+    # compress()
+    normalize_size()
+    crop()
+    log.log_show()
     # stitch()
     # normalize_color()
-    end_time = time.time()
-    print("Time = " + str(int((end_time - start_time) / 60)) + " min, Speed = " + str(
-        int((end_time - start_time) / file_nums)) + " s/img")
