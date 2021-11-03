@@ -17,7 +17,9 @@ def log_init():
 def log_show():
     with open("D:/_DATA/operation_log.txt", "r") as f:
         data = f.readlines()
-        print("\033[37;42m" + data + "\033[0m")
+        print('\033[1;31;40m')
+        for i in range(len(data)):
+            print(data[i])
         f.close()
 
 
@@ -42,5 +44,5 @@ def log_line():
 def log_speed(start, end, num):
     with open("D:/_DATA/operation_log.txt", "a+") as f:
         f.write("\tTime = " + str(int((end - start) / 60)) + " min, Speed = " + str(
-            int((end - start) / num)) + " s/img")
+            int((end - start) / num)) + " s/img\n")
         f.close()

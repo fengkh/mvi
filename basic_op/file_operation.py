@@ -10,6 +10,12 @@ def get_file_absolute_path(path):
     return list_name
 
 
+def del_space(list1):
+    for i in range(len(list1)):
+        list1[i].rstrip()
+    return list1
+
+
 # 创建文件夹
 def generate_path(path):
     folder = os.path.exists(path)

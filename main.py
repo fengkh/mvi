@@ -31,8 +31,8 @@ def normalize_color():
 if __name__ == '__main__':
     # log.log_init()
     # compress()
-    normalize_size()
-    crop()
+    # normalize_size()
+    # crop()
     log.log_show()
     # stitch()
     # normalize_color()

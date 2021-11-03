@@ -69,7 +69,8 @@ def crop(ori_path, des_path, size):
             if column == 11:
                 row += 1
                 column = 0
-            result[j].save(file_path[i] + "/" + file_name[i] + "&" + str(row) + "_" + str(column) + ".png")
+            result[j].save(
+                file_path[i].rstrip() + "/" + file_name[i].rstrip() + "&" + str(row) + "_" + str(column) + ".png")
             column += 1
         log.log_data("Finished " + str(i) + " :" + files[i])
     # print("\tcrop complete:" + str(time.asctime(time.localtime(time.time()))))
