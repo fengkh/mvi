@@ -11,7 +11,7 @@ def compress():
 
 def normalize_size():
     data_pre.normalize_size(ori_path="D:\_DATA/ndpi_com",
-                            des_path="D:\_DATA/ndpi_nor", size=10240)
+                            des_path="D:\_DATA/ndpi_nor_test", size=10240)
 
 
 def crop():
@@ -31,7 +31,7 @@ def normalize_color():
 if __name__ == '__main__':
     # log.log_init()
     # compress()
-    # normalize_size()
+    normalize_size()
     # crop()
     log.log_show()
     # stitch()

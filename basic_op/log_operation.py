@@ -23,15 +23,19 @@ def log_show():
         f.close()
 
 
-def log_data(log_info):
+def log_data(log_info, flag):
     with open("D:/_DATA/operation_log.txt", "a+") as f:
-        f.write("\t\t")
         if isinstance(log_info, list):
             for i in range(len(log_info)):
                 f.write(log_info[i] + "; ")
             f.write("\n")
         else:
-            f.write(log_info + "\n")
+            if flag == 0:
+                f.write("\n\t" + log_info)
+            if flag == 1:
+                f.write(" " + log_info)
+            if flag == -1:
+                f.write("\n\t\t" + log_info)
         f.close()
 
 

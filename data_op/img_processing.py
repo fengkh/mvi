@@ -21,18 +21,21 @@ def compress(ori_path, des_path, w, h):
     list_name = fop.get_file_absolute_path(ori_path)
     fop.generate_path(des_path)
     file_nums = len(file_name)
-    log.log_data("Total numbers:" + str(len(file_name)))
+    log.log_data("Total numbers:" + str(len(file_name)), 0)
     for i in range(file_nums):
         image_path = list_name[i]
         slide = openslide.open_slide(image_path)
         [W, H] = slide.level_dimensions[0]
         # print(file_name[i] + '----', W, H)
         save_img = slide.get_thumbnail((W / w, H / h))
-        save_path = des_path + "/" + file_name[i] + '.png'
+        save_path = des_path + "/" + file_name[i].rstrip() + '.png'
         save_img.save(save_path)
         save_img.close()
         slide.close()
-        log.log_data("Finished " + str(i) + " :" + list_name[i])
+        # if (i + 1) % 15 == 0 or i == 0:
+        #     log.log_data("Finished " + str(i) + " :" + file_name[i], -1)
+        # else:
+        #     log.log_data(str(i) + ":" + file_name[i], 1)
     # print("\tcompress complete:" + str(time.asctime(time.localtime(time.time()))))
     end = log.log_time("\tCompress complete:")
     log.log_speed(start, end, len(file_name))
@@ -48,7 +51,7 @@ def crop(ori_path, des_path, size):
     files = fop.get_file_absolute_path(ori_path)
     file_path = fop.generate_paths(ori_path, des_path)
     file_name = fop.get_filename(ori_path)
-    log.log_data("Total numbers:" + str(len(file_name)))
+    log.log_data("Total numbers:" + str(len(file_name)), 0)
     # 裁剪每个单独的图并存放到对应的目录下
     for i in range(len(files)):
         # img = np.array(Image.open(files[i]))
@@ -72,7 +75,10 @@ def crop(ori_path, des_path, size):
             result[j].save(
                 file_path[i].rstrip() + "/" + file_name[i].rstrip() + "&" + str(row) + "_" + str(column) + ".png")
             column += 1
-        log.log_data("Finished " + str(i) + " :" + files[i])
+        # if (i + 1) % 15 == 0 or i == 0:
+        #     log.log_data("Finished " + str(i) + " :" + file_name[i], -1)
+        # else:
+        #     log.log_data(str(i) + ":" + file_name[i], 1)
     # print("\tcrop complete:" + str(time.asctime(time.localtime(time.time()))))
     end = log.log_time("\tcrop complete:")
     log.log_speed(start, end, len(file_name))
@@ -86,7 +92,7 @@ def stitch(ori_path, des_path):
     start = log.log_time("\tstitch:")
     file_path = fop.get_file_absolute_path(ori_path)
     fop.generate_path(des_path)
-    log.log_data("Total numbers:" + str(len(file_path)))
+    log.log_data("Total numbers:" + str(len(file_path)), 0)
     for i in range(len(file_path)):
         file_name = fop.get_filename(file_path[i])
         image = Image.new("RGB", (10240, 10240))
@@ -97,7 +103,10 @@ def stitch(ori_path, des_path):
             box = ((row - 1) * 1024, (column - 1) * 1024, row * 1024, column * 1024)
             image.paste(img, box)
         image.save(des_path + "/" + file_name[i].split("&", 1)[0] + ".png")
-        log.log_data("Finished " + str(i) + " :" + file_path[i])
+        # if (i + 1) % 15 == 0 or i == 0:
+        #     log.log_data("Finished " + str(i) + " :" + file_name[i], -1)
+        # else:
+        #     log.log_data(str(i) + ":" + file_name[i], 1)
     # print("\tstitch complete:" + str(time.asctime(time.localtime(time.time()))))
     end = log.log_time("\tstitch complete:")
     log.log_speed(start, end, len(file_name))
@@ -112,12 +121,15 @@ def normalize_size(ori_path, des_path, size):
     files = fop.get_file_absolute_path(ori_path)
     file_name = fop.get_filename(ori_path)
     fop.generate_path(des_path)
-    log.log_data("Total numbers:" + str(len(file_name)))
+    log.log_data("Total numbers:" + str(len(file_name)), 0)
     for i in range(len(files)):
         image = Image.open(files[i])
         resized_img = image.resize((size, size))
-        resized_img.save(des_path + "/" + file_name[i] + '.png')
-        log.log_data("Finished " + str(i) + " :" + files[i])
+        resized_img.save(des_path + "/" + file_name[i].rstrip() + '.png')
+        if (i + 1) % 15 == 0 or i == 0:
+            log.log_data("Finished " + str(i) + " :" + file_name[i], -1)
+        else:
+            log.log_data(str(i) + ":" + file_name[i], 1)
     # print("\tnormalize_size complete:" + str(time.asctime(time.localtime(time.time()))))
     end = log.log_time("\tnormalize_size complete:")
     log.log_speed(start, end, len(file_name))
@@ -133,11 +145,15 @@ def normalize_color(ori_path, des_path, standard_path):
     fop.generate_path(des_path)
     file_path = fop.get_file_absolute_path(ori_path)
     file_name = fop.get_filename(ori_path)
+    log.log_data("Total numbers:" + str(len(file_name)), 0)
     for i in range(len(file_path)):
         img = np.array(Image.open(file_path[i]))
         img = Image.fromarray(color_transfer(standard, img))
-        img.save(des_path + "/" + file_name[i] + ".png")
-        log.log_data("Finished " + str(i) + " :" + file_path[i])
+        img.save(des_path + "/" + file_name[i].rstrip() + ".png")
+        # if (i + 1) % 15 == 0 or i == 0:
+        #     log.log_data("Finished " + str(i) + " :" + file_name[i], -1)
+        # else:
+        #     log.log_data(str(i) + ":" + file_name[i], 1)
     print("\tcolor_normalization complete:" + str(time.asctime(time.localtime(time.time()))))
     end = log.log_time("\tnormalize_color complete:")
     log.log_speed(start, end, len(file_name))
