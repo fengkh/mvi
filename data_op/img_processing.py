@@ -37,7 +37,7 @@ def compress(ori_path, des_path, w, h):
         else:
             log.log_data(str(i) + ":" + file_name[i], 1)
     # print("\tcompress complete:" + str(time.asctime(time.localtime(time.time()))))
-    end = log.log_time("\tCompress complete:")
+    end = log.log_time("\n\tCompress complete:")
     log.log_speed(start, end, len(file_name))
     log.log_line()
 
@@ -80,7 +80,7 @@ def crop(ori_path, des_path, size):
         else:
             log.log_data(str(i) + ":" + file_name[i], 1)
     # print("\tcrop complete:" + str(time.asctime(time.localtime(time.time()))))
-    end = log.log_time("\tcrop complete:")
+    end = log.log_time("\n\tcrop complete:")
     log.log_speed(start, end, len(file_name))
     log.log_line()
 
@@ -108,7 +108,7 @@ def stitch(ori_path, des_path):
         else:
             log.log_data(str(i) + ":" + file_name[i], 1)
     # print("\tstitch complete:" + str(time.asctime(time.localtime(time.time()))))
-    end = log.log_time("\tstitch complete:")
+    end = log.log_time("\n\tstitch complete:")
     log.log_speed(start, end, len(file_name))
     log.log_line()
 
@@ -131,7 +131,7 @@ def normalize_size(ori_path, des_path, size):
         else:
             log.log_data(str(i) + ":" + file_name[i], 1)
     # print("\tnormalize_size complete:" + str(time.asctime(time.localtime(time.time()))))
-    end = log.log_time("\tnormalize_size complete:")
+    end = log.log_time("\n\tnormalize_size complete:")
     log.log_speed(start, end, len(file_name))
     log.log_line()
 
@@ -155,6 +155,6 @@ def normalize_color(ori_path, des_path, standard_path):
         else:
             log.log_data(str(i) + ":" + file_name[i], 1)
     print("\tcolor_normalization complete:" + str(time.asctime(time.localtime(time.time()))))
-    end = log.log_time("\tnormalize_color complete:")
+    end = log.log_time("\n\tnormalize_color complete:")
     log.log_speed(start, end, len(file_name))
     log.log_line()
