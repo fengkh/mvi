@@ -32,10 +32,10 @@ def compress(ori_path, des_path, w, h):
         save_img.save(save_path)
         save_img.close()
         slide.close()
-        # if (i + 1) % 15 == 0 or i == 0:
-        #     log.log_data("Finished " + str(i) + " :" + file_name[i], -1)
-        # else:
-        #     log.log_data(str(i) + ":" + file_name[i], 1)
+        if (i + 1) % 15 == 0 or i == 0:
+            log.log_data("Finished " + str(i) + " :" + file_name[i], -1)
+        else:
+            log.log_data(str(i) + ":" + file_name[i], 1)
     # print("\tcompress complete:" + str(time.asctime(time.localtime(time.time()))))
     end = log.log_time("\tCompress complete:")
     log.log_speed(start, end, len(file_name))
@@ -75,10 +75,10 @@ def crop(ori_path, des_path, size):
             result[j].save(
                 file_path[i].rstrip() + "/" + file_name[i].rstrip() + "&" + str(row) + "_" + str(column) + ".png")
             column += 1
-        # if (i + 1) % 15 == 0 or i == 0:
-        #     log.log_data("Finished " + str(i) + " :" + file_name[i], -1)
-        # else:
-        #     log.log_data(str(i) + ":" + file_name[i], 1)
+        if (i + 1) % 15 == 0 or i == 0:
+            log.log_data("Finished " + str(i) + " :" + file_name[i], -1)
+        else:
+            log.log_data(str(i) + ":" + file_name[i], 1)
     # print("\tcrop complete:" + str(time.asctime(time.localtime(time.time()))))
     end = log.log_time("\tcrop complete:")
     log.log_speed(start, end, len(file_name))
@@ -103,10 +103,10 @@ def stitch(ori_path, des_path):
             box = ((row - 1) * 1024, (column - 1) * 1024, row * 1024, column * 1024)
             image.paste(img, box)
         image.save(des_path + "/" + file_name[i].split("&", 1)[0] + ".png")
-        # if (i + 1) % 15 == 0 or i == 0:
-        #     log.log_data("Finished " + str(i) + " :" + file_name[i], -1)
-        # else:
-        #     log.log_data(str(i) + ":" + file_name[i], 1)
+        if (i + 1) % 15 == 0 or i == 0:
+            log.log_data("Finished " + str(i) + " :" + file_name[i], -1)
+        else:
+            log.log_data(str(i) + ":" + file_name[i], 1)
     # print("\tstitch complete:" + str(time.asctime(time.localtime(time.time()))))
     end = log.log_time("\tstitch complete:")
     log.log_speed(start, end, len(file_name))
@@ -150,10 +150,10 @@ def normalize_color(ori_path, des_path, standard_path):
         img = np.array(Image.open(file_path[i]))
         img = Image.fromarray(color_transfer(standard, img))
         img.save(des_path + "/" + file_name[i].rstrip() + ".png")
-        # if (i + 1) % 15 == 0 or i == 0:
-        #     log.log_data("Finished " + str(i) + " :" + file_name[i], -1)
-        # else:
-        #     log.log_data(str(i) + ":" + file_name[i], 1)
+        if (i + 1) % 15 == 0 or i == 0:
+            log.log_data("Finished " + str(i) + " :" + file_name[i], -1)
+        else:
+            log.log_data(str(i) + ":" + file_name[i], 1)
     print("\tcolor_normalization complete:" + str(time.asctime(time.localtime(time.time()))))
     end = log.log_time("\tnormalize_color complete:")
     log.log_speed(start, end, len(file_name))
