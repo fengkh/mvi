@@ -5,8 +5,8 @@ import data_op.img_processing as data_pre
 
 
 def compress():
-    data_pre.compress(ori_path="D:\_DATA\T&N/ndpi",
-                      des_path="D:\_DATA/ndpi_com", w=10, h=10)
+    data_pre.compress(ori_path="D:\_DATA\T&N/ndpi_nor",
+                      des_path="D:\_DATA\T&N/ndpi_seg", w=20, h=20)
 
 
 def normalize_size():
@@ -29,15 +29,15 @@ def normalize_color():
 
 
 if __name__ == '__main__':
-    start = time.time()
+    # start = time.time()
     # log.log_init()
     compress()
-    normalize_size()
-    crop()
-    end = time.time()
-    log.log_line()
-    log.log_speed(start, end, 30)
-    log.log_line()
-    log.log_show()
+    # normalize_size()
+    # crop()
+    # end = time.time()
+    # log.log_line()
+    # log.log_speed(start, end, 30)
+    # log.log_line()
+    # log.log_show()
     # stitch()
     # normalize_color()
