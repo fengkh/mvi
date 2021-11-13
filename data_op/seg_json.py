@@ -1,3 +1,4 @@
+import glob
 import json
 import os
 import time
@@ -53,8 +54,3 @@ def json_content(ori_path, des_path):
     log.log_line()
 
 
-# 批量转换数据集
-def json_convert(ori_path):
-    file_name = fop.get_filename(ori_path)
-    file_path = fop.get_file_absolute_path(ori_path)
-    fop.generate_paths(file_name)

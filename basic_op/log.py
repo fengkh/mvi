@@ -1,6 +1,6 @@
 import time
 
-log_path = "D:\_DATA\T&N/log.txt"
+log_path = "E:\IoT\项目\肝脏肿瘤入侵识别项目\stage2\dataset\癌灶分割标注/log.txt"
 
 
 def log_time(func_name):

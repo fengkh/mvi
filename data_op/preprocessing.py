@@ -1,6 +1,6 @@
 import time
 
-import color_transfer
+from color_transfer import color_transfer
 import numpy as np
 import openslide
 from PIL import Image
