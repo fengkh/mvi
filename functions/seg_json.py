@@ -5,8 +5,8 @@ import time
 
 import numpy as np
 
-import basic_op.file as fop
-import basic_op.log as log
+import basic_operations.file as fop
+import basic_operations.log as log
 
 
 def magnify(ori_path, des_path, ratio):
@@ -15,9 +15,9 @@ def magnify(ori_path, des_path, ratio):
     start = log.log_time("\tseg_magnify:")
     if not os.path.exists(des_path):
         os.makedirs(des_path)
-    files = fop.get_file_absolute_path(ori_path)
+    files = fop.get_files_ab_path(ori_path)
     for i in range(len(files)):
-        file_name = fop.get_filename(ori_path)
+        file_name = fop.get_just_filename(ori_path)
         json_file = os.path.join(ori_path, file_name[i] + '.json')
         save_to = open(os.path.join(des_path, file_name[i] + '.json'), 'w')
         with open(json_file, 'rb') as f:
@@ -38,8 +38,8 @@ def json_content(ori_path, des_path):
     print("\tjson_content:" + str(time.asctime(time.localtime(time.time()))))
     log.log_line()
     start = log.log_time("\tjson_content:")
-    files = fop.get_file_absolute_path(ori_path)
-    file_name = fop.get_filename(ori_path)
+    files = fop.get_files_ab_path(ori_path)
+    file_name = fop.get_just_filename(ori_path)
     for i in range(len(files)):
         save = des_path + "/" + file_name[i] + ".json"
         with open(files[i], "rb") as fp:

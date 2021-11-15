@@ -5,8 +5,8 @@ import numpy as np
 import openslide
 from PIL import Image
 
-import basic_op.file as fop
-import basic_op.log as log
+import basic_operations.file as fop
+import basic_operations.log as log
 
 Image.MAX_IMAGE_PIXELS = None
 
@@ -17,8 +17,8 @@ def compress(ori_path, des_path, w, h):
     # print("\tcompress:" + str(time.asctime(time.localtime(time.time()))))
     log.log_line()
     start = log.log_time("\tCompress:")
-    file_name = fop.get_filename(ori_path)
-    list_name = fop.get_file_absolute_path(ori_path)
+    file_name = fop.get_just_filename(ori_path)
+    list_name = fop.get_files_ab_path(ori_path)
     fop.generate_path(des_path)
     file_nums = len(file_name)
     log.log_data("Total numbers:" + str(len(file_name)), 0)
@@ -48,9 +48,9 @@ def crop(ori_path, des_path, size):
     log.log_line()
     start = log.log_time("\tcrop:")
     # file_path为新文件目录表
-    files = fop.get_file_absolute_path(ori_path)
+    files = fop.get_files_ab_path(ori_path)
     file_path = fop.generate_paths(ori_path, des_path)
-    file_name = fop.get_filename(ori_path)
+    file_name = fop.get_just_filename(ori_path)
     log.log_data("Total numbers:" + str(len(file_name)), 0)
     # 裁剪每个单独的图并存放到对应的目录下
     for i in range(len(files)):
@@ -71,7 +71,7 @@ def crop(ori_path, des_path, size):
         for j in range(100):
             if column == 11:
                 row += 1
-                column = 0
+                column = 1
             result[j].save(
                 file_path[i].rstrip() + "/" + file_name[i].rstrip() + "&" + str(row) + "_" + str(column) + ".png")
             column += 1
@@ -90,11 +90,11 @@ def stitch(ori_path, des_path):
     # print("\tstitch:" + str(time.asctime(time.localtime(time.time()))))
     log.log_line()
     start = log.log_time("\tstitch:")
-    file_path = fop.get_file_absolute_path(ori_path)
+    file_path = fop.get_files_ab_path(ori_path)
     fop.generate_path(des_path)
     log.log_data("Total numbers:" + str(len(file_path)), 0)
     for i in range(len(file_path)):
-        file_name = fop.get_filename(file_path[i])
+        file_name = fop.get_just_filename(file_path[i])
         image = Image.new("RGB", (10240, 10240))
         for j in range(len(file_name)):
             row = int(file_name[j].split("&", 1)[1].split("_", 1)[0])
@@ -118,8 +118,8 @@ def normalize_size(ori_path, des_path, size):
     # print("\tnormalize_size:" + str(time.asctime(time.localtime(time.time()))))
     log.log_line()
     start = log.log_time("\tnormalize_size:")
-    files = fop.get_file_absolute_path(ori_path)
-    file_name = fop.get_filename(ori_path)
+    files = fop.get_files_ab_path(ori_path)
+    file_name = fop.get_just_filename(ori_path)
     fop.generate_path(des_path)
     log.log_data("Total numbers:" + str(len(file_name)), 0)
     for i in range(len(files)):
@@ -143,8 +143,8 @@ def normalize_color(ori_path, des_path, standard_path):
     start = log.log_time("\tnormalize_color:")
     standard = np.array(Image.open(standard_path))
     fop.generate_path(des_path)
-    file_path = fop.get_file_absolute_path(ori_path)
-    file_name = fop.get_filename(ori_path)
+    file_path = fop.get_files_ab_path(ori_path)
+    file_name = fop.get_just_filename(ori_path)
     log.log_data("Total numbers:" + str(len(file_name)), 0)
     for i in range(len(file_path)):
         img = np.array(Image.open(file_path[i]))
