@@ -1,12 +1,11 @@
-import glob
 import json
 import os
 import time
 
 import numpy as np
 
-import basic_operations.file as fop
-import basic_operations.log as log
+import system_operation.file as fop
+import system_operation.log as log
 
 
 def magnify(ori_path, des_path, ratio):
@@ -52,5 +51,3 @@ def json_content(ori_path, des_path):
     end = log.log_time("\n\tjson_content complete:")
     log.log_speed(start, end, len(files))
     log.log_line()
-
-

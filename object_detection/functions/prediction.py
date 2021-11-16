@@ -1,8 +1,8 @@
 from PIL import Image, ImageDraw, ImageFont
 
-import api.baidu_api as bpi
-import basic_operations.file as fop
-import basic_operations.log as log
+import object_detection.api.baidu_api as bpi
+import system_operation.file as fop
+import system_operation.log as log
 
 
 def get_one_predict(ori_path):

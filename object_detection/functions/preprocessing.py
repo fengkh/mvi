@@ -5,8 +5,8 @@ import numpy as np
 import openslide
 from PIL import Image
 
-import basic_operations.file as fop
-import basic_operations.log as log
+import system_operation.file as fop
+import system_operation.log as log
 
 Image.MAX_IMAGE_PIXELS = None
 
