@@ -4,9 +4,9 @@ import system_operation.log as log
 
 
 # 从病理切片到预测出结果的完整流程操作
-def from_slice_to_result():
+def object_detection():
     # ori_path和des_path应为存文件的文件夹路径，并非文件路路径
-    log.log_data("完整流程", 1)
+    log.log_data("Object detection with Baidu-API", 1)
     proc.compress("D:\_mvi\_ndpi", "D:\_mvi\_ndpi_", 8, 8)
     proc.normalize_size("D:\_mvi\_ndpi_", "D:\_mvi\_size", 10240)
     proc.crop("D:\_mvi\_size", "D:\_mvi\_crop", 1024)
@@ -15,4 +15,4 @@ def from_slice_to_result():
 
 
 if __name__ == '__main__':
-    from_slice_to_result()
+    object_detection()

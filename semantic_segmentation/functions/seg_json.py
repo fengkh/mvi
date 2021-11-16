@@ -51,3 +51,20 @@ def json_content(ori_path, des_path):
     end = log.log_time("\n\tjson_content complete:")
     log.log_speed(start, end, len(files))
     log.log_line()
+
+
+def generate_dataset(ori_path, des_path):
+    log.log_line()
+    start = log.log_time("\tgenerate_dataset:")
+    fop.generate_path(des_path + "/label")
+    fop.generate_path(des_path + "/image")
+    file_names = fop.get_just_filename(ori_path)
+    for i in range(len(file_names)):
+        father_path = ori_path + "/" + file_names[i]
+        img = Image.open(father_path + "/img.png")
+        label = Image.open(father_path + "/label.png")
+        img.save(des_path + "/image/" + file_names[i] + ".png")
+        label.save(des_path + "/label/" + file_names[i] + ".png")
+    end = log.log_time("\n\tseg_magnify complete:")
+    log.log_speed(start, end, len(file_names))
+    log.log_line()
