@@ -3,6 +3,7 @@ import os
 import time
 
 import numpy as np
+from PIL import Image
 
 import system_operation.file as fop
 import system_operation.log as log

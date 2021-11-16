@@ -14,5 +14,10 @@ def object_detection():
     proc.stitch("D:\_mvi\_crop", "D:\_mvi\_results")
 
 
+def test():
+    print("test module:")
+
+
 if __name__ == '__main__':
-    object_detection()
+    # object_detection()
+    test()
