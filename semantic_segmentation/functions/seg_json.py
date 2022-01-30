@@ -1,12 +1,14 @@
 import json
-import os
 import time
 
+import os
+import json
+import cv2
+import matplotlib.pyplot as plt
 import numpy as np
-from PIL import Image
-
 import system_operation.file as fop
 import system_operation.log as log
+from PIL import Image
 
 
 def magnify(ori_path, des_path, ratio):
@@ -66,6 +68,54 @@ def generate_dataset(ori_path, des_path):
         label = Image.open(father_path + "/label.png")
         img.save(des_path + "/image/" + file_names[i] + ".png")
         label.save(des_path + "/label/" + file_names[i] + ".png")
-    end = log.log_time("\n\tseg_magnify complete:")
+    end = log.log_time("\n\tgenerate_dataset complete:")
     log.log_speed(start, end, len(file_names))
     log.log_line()
+
+
+def img_24to8():
+    bacepath = "D:\code_python/unet-master\data\membrane/train\image"
+    savepath = 'D:\_mvi/test'
+
+    f_n = os.listdir(bacepath)
+
+    for n in f_n:
+        imdir = bacepath + "/" + n
+        img = cv2.imread(imdir)
+        # print(imdir)
+        cropped = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        cv2.imwrite(savepath + "/" + n, cropped)  # NOT CAHNGE THE TYPE
+
+
+def generate_mask(ori_path, des_path):
+    json_files = fop.get_files_ab_path(ori_path + "/json")
+    png_files = fop.get_files_ab_path(ori_path + "/png")
+    file_name = fop.get_just_filename(ori_path + "/png")
+    # print(file_name)
+    # print(json_files)
+    tmp = {}
+    for i in range(len(json_files)):
+        with open(json_files[i], "r") as f:
+            tmp = f.read()
+        tmp = json.loads(tmp)
+        points = []
+        for j in range(len(tmp["shapes"])):
+            if tmp["shapes"][j]["label"] == '2':
+                for k in range(len(tmp["shapes"][j]["points"])):
+                    points.append(tmp["shapes"][j]["points"][k])
+        points = np.array(points, np.int32)
+        if len(points) is not 0:
+            img = cv2.imread(png_files[i])
+            # BGR->RGB
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+            # box = tmp["shapes"][1]["points"]
+            # box = np.array(box, np.int32)
+            mask = np.zeros_like(img)
+            # cv2.rectangle(img, (box[0][0], box[0][1]), (box[1][0], box[1][1]), (125, 125, 125), 2)
+            # cv2.polylines(img, [points], 1, (0,0,255))
+            cv2.fillPoly(mask, [points], (255, 255, 255))
+            img_add = cv2.addWeighted(mask, 0.3, img, 0.7, 0)
+            cv2.imwrite(des_path + "/label_2/" + file_name[i] + "_json.png", mask)
+
+
+generate_mask("D:\seg","D:\seg/test")

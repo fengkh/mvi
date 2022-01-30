@@ -7,6 +7,7 @@ import system_operation.log as log
 
 def get_one_predict(ori_path):
     json = bpi.predict(ori_path)
+    pred_num = 0
     if len(json['results']) is not 0:
         print(json)
         for i in range(len(json['results'])):
@@ -29,19 +30,23 @@ def get_one_predict(ori_path):
                 draw.line(left_top + right_top, fill=128, width=10)
                 draw.line(right_top + right_down, fill=128, width=10)
                 draw.line(right_down + left_down, fill=128, width=10)
+                pred_num = pred_num + 1
             img.save(ori_path)
+    return pred_num
 
 
 def get_100_predict(ori_path):
+    nums = 0
     log.log_line()
     start = log.log_time("\tprediction:")
     file_paths = fop.get_dir_file(ori_path)
     num = len(file_paths) * 100
-    log.log_data("Total numbers:" + num, 0)
+    log.log_data("Total numbers:" + str(num), 0)
     for i in range(len(file_paths)):
         files = fop.get_files_ab_path(file_paths[i])
         for j in range(len(files)):
-            get_one_predict(files[j])
+            nums = nums + get_one_predict(files[j])
     end = log.log_time("\n\tprediction complete:")
     log.log_speed(start, end, num)
     log.log_line()
+    return nums
