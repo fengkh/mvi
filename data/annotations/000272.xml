@@ -1,0 +1,33 @@
+<annotation>
+    <folder>VOC2007</folder>
+    <filename>000272.jpg</filename>
+    <size>
+        <width>1000</width>
+        <height>1000</height>
+        <depth>3</depth>
+    </size>
+    <object>
+        <name>1</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>465</xmin>
+            <ymin>462</ymin>
+            <xmax>513</xmax>
+            <ymax>523</ymax>
+        </bndbox>
+    </object>
+    <object>
+        <name>1</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>128</xmin>
+            <ymin>647</ymin>
+            <xmax>237</xmax>
+            <ymax>764</ymax>
+        </bndbox>
+    </object>
+</annotation>
