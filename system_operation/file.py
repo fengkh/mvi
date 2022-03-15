@@ -118,3 +118,4 @@ def delete_overlap(txt1, txt2):
 # get_txt_file("F:/2  binsong  3573", "E:\_DATA\data/N")
 # generate_selection_txt()
 # delete_overlap("F:/2  binsong  3573/file_path.txt","E:\_DATA\data/N/file_path.txt")
+# get_just_filename("E:\_test\Z1960411-8\\Z1960411-8&10_1.png")

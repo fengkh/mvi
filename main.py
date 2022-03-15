@@ -16,7 +16,8 @@ def from_slice_to_result():
 
 
 if __name__ == '__main__':
-    from_slice_to_result()
+    # from_slice_to_result()
     # proc.compress("E:\_DATA\data/N", "E:\_DATA\data/round2/N/compress_约10240", 8, 8)
     # proc.normalize_size("E:\_DATA\data/round2/N/compress_约10240", "E:\_DATA\data/round2/N/normalize_10240", 10240)
-    # proc.crop("E:\_DATA\data/round2/N/normalize_10240","E:\_DATA\data/round2/N/crop_1024",1024)
+    # proc.crop("E:/test","E:/_test",1024)
+    proc.stitch("E:\pic","E:/_test_")

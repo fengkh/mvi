@@ -1,6 +1,6 @@
 import time
 
-log_path = "E:\code_python/mvi/log.txt"
+log_path = "E:\code_python/_mvi_/log.txt"
 
 
 def log_start(func_name):

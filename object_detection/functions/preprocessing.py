@@ -74,7 +74,7 @@ def crop(ori_path, des_path, size):
                 row += 1
                 column = 1
             result[j].save(
-                file_path[i].rstrip() + "/" + file_name[i].rstrip() + "&" + str(row) + "_" + str(column) + ".png")
+                file_path[i].rstrip() + "/" + file_name[i].rstrip() + "~" + str(row) + "_" + str(column) + ".png")
             column += 1
         if (i + 1) % 15 == 0 or i == 0:
             log.log_data("Finished " + str(i) + " :" + file_name[i], -1)
@@ -95,15 +95,16 @@ def stitch(ori_path, des_path):
     fop.generate_path(des_path)
     log.log_data("Total numbers:" + str(len(file_path)), 0)
     for i in range(len(file_path)):
+        # print(file_path)
         file_name = fop.get_just_filename(file_path[i])
         image = Image.new("RGB", (10240, 10240))
         for j in range(len(file_name)):
-            row = int(file_name[j].split("&", 1)[1].split("_", 1)[0])
-            column = int(file_name[j].split("&", 1)[1].split("_", 1)[1])
+            row = int(file_name[j].split("~", 1)[1].split("_", 1)[0])
+            column = int(file_name[j].split("~", 1)[1].split("_", 1)[1])
             img = Image.open(file_path[i] + "/" + file_name[j] + ".png")
             box = ((row - 1) * 1024, (column - 1) * 1024, row * 1024, column * 1024)
             image.paste(img, box)
-        image.save(des_path + "/" + file_name[i].split("&", 1)[0] + ".png")
+        image.save(des_path + "/" + file_name[i].split("~", 1)[0] + ".png")
         if (i + 1) % 15 == 0 or i == 0:
             log.log_data("Finished " + str(i) + " :" + file_name[i], -1)
         else:
@@ -162,7 +163,7 @@ def normalize_color(ori_path, des_path, standard_path):
 
 
 def create_txts():
-    path = "E:\code_python\mvi\data\image"
+    path = "E:\code_python\datasets\coco\images"
     name = fop.get_files_ab_path(path)
     train_box = []
     test_box = []
@@ -179,20 +180,19 @@ def create_txts():
             elif len(val_box) <= 80:
                 val_box.append(name[i])
                 break
-    with open("E:\code_python\mvi\data/train.txt", "a") as file:
+    with open("E:\code_python\datasets\coco/train.txt", "w") as file:
         for i in range(len(train_box)):
             file.write(train_box[i] + "\n")
         file.close()
-    with open("E:\code_python\mvi\data/test.txt", "a") as file:
+    with open("E:\code_python\datasets\coco/test.txt", "w") as file:
         for i in range(len(test_box)):
             file.write(test_box[i] + "\n")
         file.close()
-    with open("E:\code_python\mvi\data/val.txt", "a") as file:
+    with open("E:\code_python\datasets\coco/val.txt", "w") as file:
         for i in range(len(val_box)):
             file.write(val_box[i] + "\n")
         file.close()
 
 
-#
-# if __name__ == '__main__':
-#     create_txts()
+if __name__ == '__main__':
+    create_txts()
