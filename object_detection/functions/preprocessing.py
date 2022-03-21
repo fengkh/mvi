@@ -1,15 +1,56 @@
 import random
 import time
-
+import os
 from color_transfer import color_transfer
 import numpy as np
 import openslide
 from PIL import Image
-
+# import file as fop
 import system_operation.file as fop
 import system_operation.log as log
 
 Image.MAX_IMAGE_PIXELS = None
+
+
+# 根据txt文件筛选出目标文件,记得把txt文件放到同一个目录下
+def get_txt_file(txt_path, ori_path):
+    # log.log_line()
+    # start = log.log_time("\tCompress One:")
+    my_list = []
+    with open(txt_path + "/file_path.txt", "r") as f:
+        line = f.readline()
+        while line:
+            my_list.append(txt_path + "/" + line.strip("\n") + ".mrxs")
+            line = f.readline()
+        f.close()
+    # print(my_list)
+    for i in range(len(my_list)):
+        if os.path.exists(my_list[i]):
+            compress_one(my_list[i], ori_path, 7, 7)
+        else:
+            with open(ori_path + "\lost.txt", "a+") as lost:
+                lost.write(my_list[i].split("/")[-1] + "\n")
+                lost.close()
+    # log.log_line()
+
+
+def compress_one(ori_path, des_path, w, h):
+    file_name = ori_path.split("/")[-1]
+    save_path = des_path + "/" + file_name.split(".")[0] + ".png"
+    if not os.path.exists(save_path):
+        slide = openslide.open_slide(ori_path)
+        [W, H] = slide.level_dimensions[0]
+        # print(file_name[i] + '----', W, H)
+        save_img = slide.get_thumbnail((W / w, H / h))
+        save_img = save_img.resize((10240, 10240))
+        save_img.save(save_path)
+        print("write:" + save_path)
+        save_img.close()
+        slide.close()
+    else:
+        print("exist-\n")
+    # print("\tcompress complete:" + str(time.asctime(time.localtime(time.time()))))
+    # end = log.log_time("\n\tCompress complete:")
 
 
 # 压缩病理切片（w，h参数分别表示长宽的压缩比）
@@ -99,12 +140,12 @@ def stitch(ori_path, des_path):
         file_name = fop.get_just_filename(file_path[i])
         image = Image.new("RGB", (10240, 10240))
         for j in range(len(file_name)):
-            row = int(file_name[j].split("~", 1)[1].split("_", 1)[0])
-            column = int(file_name[j].split("~", 1)[1].split("_", 1)[1])
+            row = int(file_name[j].split("&", 1)[1].split("_", 1)[0])
+            column = int(file_name[j].split("&", 1)[1].split("_", 1)[1])
             img = Image.open(file_path[i] + "/" + file_name[j] + ".png")
             box = ((row - 1) * 1024, (column - 1) * 1024, row * 1024, column * 1024)
             image.paste(img, box)
-        image.save(des_path + "/" + file_name[i].split("~", 1)[0] + ".png")
+        image.save(des_path + "/" + file_name[i].split("&", 1)[0] + ".png")
         if (i + 1) % 15 == 0 or i == 0:
             log.log_data("Finished " + str(i) + " :" + file_name[i], -1)
         else:
@@ -195,4 +236,11 @@ def create_txts():
 
 
 if __name__ == '__main__':
-    create_txts()
+    # create_txts()
+    # normalize_size("E:\_mvidata\T&N\TN\compress_约512", "E:\_mvidata\T&N\TN/512", 512)
+    # compress("E:\_mvidata\T&N\TN/10240", "E:\_mvidata\T&N\TN/512", 20, 20)
+    # ori = input("请输入数据所在文件夹目录：")
+    # des = "E:\_mvidata/N\一致率/10240"
+    # get_txt_file(ori, des)
+    # crop("E:\_mvidata/full_test/10240", "E:\_mvidata/full_test/1024", 1024)
+    stitch("E:\_mvidata/full_test\detection", "E:\_mvidata/full_test/result")
